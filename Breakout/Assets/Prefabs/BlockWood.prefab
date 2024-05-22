@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -8829108000746136733}
   m_Layer: 0
   m_Name: BlockWood
-  m_TagString: Untagged
+  m_TagString: Block
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -118,3 +118,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd4d2bbd44ebc93449ccc9fa39241462, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  resistance: 1
