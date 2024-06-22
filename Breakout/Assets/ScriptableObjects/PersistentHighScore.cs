@@ -17,11 +17,12 @@ public abstract class PersistentHighScore : ScriptableObject
 
     public virtual void Load(string fileName = null)
     {
-        if (File.Exists(fileName))
+        if (File.Exists(GetRoute()))
         {
             var bf = new BinaryFormatter();
             var file = File.Open(GetRoute(fileName),FileMode.Open);
-            JsonUtility.FromJsonOverwrite((string)bf.Deserialize(file), this);
+            string data = (string)bf.Deserialize(file);
+            JsonUtility.FromJsonOverwrite(data, this);
             file.Close();
         }
     }
