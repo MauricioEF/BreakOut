@@ -15,9 +15,12 @@ public class Ball : MonoBehaviour
     private ControlBorders borderControl;
     public UnityEvent BallDestroyed;
     public Settings settings;
-
+    private GameManager gameManager;
+    private Vector3 savedVelocity;
     private void Awake()
     {
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        Debug.Log(gameManager);
         borderControl = GetComponent<ControlBorders>();
         speed = (int)settings.BallSpeed;
     }
@@ -34,6 +37,31 @@ public class Ball : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (gameManager.isPaused)
+        {
+            if (rigidBody.IsSleeping())
+            {
+
+            }
+            else
+            {
+                savedVelocity = rigidBody.velocity;
+                rigidBody.Sleep();
+            }
+        }
+        else
+        {
+            if (!rigidBody.IsSleeping())
+            {
+
+            }
+            else
+            {
+                Debug.Log("Waking Up");
+                rigidBody.WakeUp();
+                rigidBody.velocity = savedVelocity;
+            }
+        }
         if (borderControl.comingFromBottom)
         {
             BallDestroyed.Invoke();
@@ -86,12 +114,22 @@ public class Ball : MonoBehaviour
     }
     private void FixedUpdate()
     {
+        if (gameManager.isPaused)
+        {
+            Debug.Log("Wont change");
+            return;
+        }
         lastPosition =  transform.position;
     }
 
     private void LateUpdate()
     {
-        if(direction != Vector3.zero)
+        if (gameManager.isPaused)
+        {
+            Debug.Log("Shouldn't move");
+            return;
+        }
+        if (direction != Vector3.zero)
         {
             direction = Vector3.zero;
         }

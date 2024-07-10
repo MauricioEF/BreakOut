@@ -9,16 +9,18 @@ public class Player : MonoBehaviour
     new Transform transform;
     Vector3 mousePosition2D;
     Vector3 mousePosition3D;
-
+    private GameManager gameManager;
     // Start is called before the first frame update
     void Start()
     {
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         transform = this.gameObject.transform;
     }
 
     // Update is called once per frame
     void Update()
-    { 
+    {
+        if (gameManager.isPaused) return;
         mousePosition2D = Input.mousePosition;
         mousePosition2D.z = -Camera.main.transform.position.z;
         mousePosition3D = Camera.main.ScreenToWorldPoint(mousePosition2D);
