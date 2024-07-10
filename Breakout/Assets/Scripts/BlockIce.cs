@@ -8,16 +8,22 @@ public class BlockIce : Block
     void Start()
     {
         //We won't change the base resistance, it will break in a single hit, we'll just change the effect when broke
+        this.speedModifier = 0.7f;
     }
 
     // Update is called once per frame
-    void Update()
+    public override void Update()
     {
-        
+        base.Update();
     }
 
-    public override void RebounceBall()
+    public override void BounceBall(Collision collision)
     {
-        base.RebounceBall();
+        base.BounceBall(collision);
+    }
+
+    public override void DecreaseResistance()
+    {
+        base.DecreaseResistance();
     }
 }

@@ -11,12 +11,18 @@ public class BlockWood : Block
     }
 
     // Update is called once per frame
-    void Update()
+    public override void Update()
     {
-        
+        base.Update();
     }
-    public override void RebounceBall()
+
+    public override void BounceBall(Collision collision)
     {
-        base.RebounceBall();
+        base.BounceBall(collision);
+    }
+
+    public override void DecreaseResistance()
+    {
+        base.DecreaseResistance();
     }
 }

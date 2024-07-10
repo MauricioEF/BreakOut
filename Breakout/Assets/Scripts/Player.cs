@@ -46,4 +46,18 @@ public class Player : MonoBehaviour
         }
         transform.position = pos;
     }
+
+    public void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Ball"))
+        {
+            BounceBall(collision);
+        }
+    }
+    public virtual void BounceBall(Collision collision)
+    {
+        Vector3 direction = collision.contacts[0].point - transform.position;
+        direction = direction.normalized;
+        collision.rigidbody.velocity = (collision.gameObject.GetComponent<Ball>().speed) * direction;
+    }
 }
