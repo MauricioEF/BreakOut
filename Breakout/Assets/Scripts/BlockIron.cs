@@ -4,21 +4,26 @@ using UnityEngine;
 
 public class BlockIron : Block
 {
+
+    private void Awake()
+    {
+        countable = false;
+    }
     // Start is called before the first frame update
     void Start()
     {
-        //This block will be unbreakable, useful for some levels where we want to add difficulty
-        resistance = 100000000;
+        this.speedModifier = 2;
     }
 
     // Update is called once per frame
-    void Update()
+    public override void Update()
     {
         
     }
 
-    public override void RebounceBall()
+    public override void BounceBall(Collision collision)
     {
-        base.RebounceBall();    
+        base.BounceBall(collision);
     }
+
 }

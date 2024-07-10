@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 7255833319094420715}
   - component: {fileID: 5133298506087063560}
   - component: {fileID: -2205236775158647675}
+  - component: {fileID: 2920590808071665567}
   m_Layer: 0
   m_Name: Ball
   m_TagString: Ball
@@ -130,7 +131,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 0
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 120
   m_CollisionDetection: 0
@@ -147,4 +148,42 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isGameStarted: 0
-  speed: 15
+  speed: 23.5
+  BallDestroyed:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: LifeManager, Assembly-CSharp
+        m_MethodName: LoseLife
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  settings: {fileID: 11400000, guid: 3a33f691e7fc532409b658287fa0e5e9, type: 2}
+--- !u!114 &2920590808071665567
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5766767665228356337}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 983841b6f46655f4cb0f822181909cac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radius: 1
+  keepInScreen: 1
+  isInScreen: 0
+  cameraAnchor: 0
+  cameraWidth: 0
+  cameraHeight: 0
+  comingFromRight: 0
+  comingFromLeft: 0
+  comingFromTop: 0
+  comingFromBottom: 0

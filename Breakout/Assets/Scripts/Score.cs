@@ -27,11 +27,6 @@ public class Score : MonoBehaviour
         highScoreSO.score = 0;
     }
 
-    private void FixedUpdate()
-    {
-        highScoreSO.score += 100;
-    }
-
     // Update is called once per frame
     void Update()
     {
@@ -43,5 +38,10 @@ public class Score : MonoBehaviour
             highScoreSO.Save();
             //PlayerPrefs.SetInt("HighScore", highScoreSO.highScore);
         }
+    }
+
+    public void IncreaseScore(int points)
+    {
+        highScoreSO.score += points;
     }
 }

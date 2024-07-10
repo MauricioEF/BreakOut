@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c6a585a659b3514eae16031c2868976, type: 3}
-  m_Name: HighScore
+  m_Script: {fileID: 11500000, guid: 88cc58c1197e55c428817b4c412c0348, type: 3}
+  m_Name: Settings
   m_EditorClassIdentifier: 
-  score: 10
-  highScore: 70300
+  BallSpeed: 30
+  DifficultyLevel: 0
