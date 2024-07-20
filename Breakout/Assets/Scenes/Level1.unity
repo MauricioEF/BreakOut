@@ -2005,6 +2005,7 @@ GameObject:
   m_Component:
   - component: {fileID: 561726451}
   - component: {fileID: 561726450}
+  - component: {fileID: 561726452}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -2040,6 +2041,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &561726452
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 561726449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33212b023a0015741acf433d275e0f66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &588533122
 GameObject:
   m_ObjectHideFlags: 0
@@ -2942,9 +2955,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 963194233}
-        m_TargetAssemblyTypeName: PauseMenu, Assembly-CSharp
-        m_MethodName: ShowSettingsMenu
+      - m_Target: {fileID: 963194234}
+        m_TargetAssemblyTypeName: LevelCompleteMenu, Assembly-CSharp
+        m_MethodName: NextLevel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3368,7 +3381,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 1
-  keepInScreen: 0
+  keepInScreen: 1
   isInScreen: 1
   cameraAnchor: 0
   cameraWidth: 0
@@ -4318,6 +4331,7 @@ GameObject:
   - component: {fileID: 1146454876}
   - component: {fileID: 1146454875}
   - component: {fileID: 1146454874}
+  - component: {fileID: 1146454879}
   m_Layer: 5
   m_Name: LevelCompletedMenu
   m_TagString: Untagged
@@ -4423,6 +4437,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1146454879
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1146454873}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62ef5be280239824c966943d266b397d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1178990526 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 425656713445097019, guid: 49a8112af3c9e9c468c9a97abb275c8c, type: 3}

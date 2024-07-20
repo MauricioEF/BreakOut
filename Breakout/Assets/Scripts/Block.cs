@@ -22,9 +22,9 @@ public class Block : MonoBehaviour
 
     public virtual void BounceBall(Collision collision)
     {
-        Vector3 direction = collision.contacts[0].point - transform.position;
+        Vector3 direction = collision.GetContact(0).point - transform.position;
         direction = direction.normalized;
-        collision.rigidbody.velocity = (collision.gameObject.GetComponent<Ball>().speed * speedModifier) * direction;
+        collision.rigidbody.velocity = (collision.gameObject.GetComponent<Ball>().savedSpeed * speedModifier) * direction;
         DecreaseResistance();
     }
 

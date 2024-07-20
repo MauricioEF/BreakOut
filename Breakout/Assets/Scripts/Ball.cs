@@ -17,12 +17,14 @@ public class Ball : MonoBehaviour
     public Settings settings;
     private GameManager gameManager;
     private Vector3 savedVelocity;
+    public float savedSpeed;
     private void Awake()
     {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         Debug.Log(gameManager);
         borderControl = GetComponent<ControlBorders>();
         speed = (int)settings.BallSpeed;
+        savedSpeed = speed;
     }
     // Start is called before the first frame update
     void Start()
@@ -75,6 +77,7 @@ public class Ball : MonoBehaviour
             direction.y *= -1;
             direction = direction.normalized;
             rigidBody.velocity = speed * direction;
+            savedSpeed = rigidBody.velocity.magnitude;
             borderControl.comingFromTop = false;
             borderControl.enabled = false;
             Invoke(nameof(EnableBorderControl), 0.2f);
@@ -86,6 +89,7 @@ public class Ball : MonoBehaviour
             direction.x *= -1;
             direction = direction.normalized;
             rigidBody.velocity = speed * direction;
+            savedSpeed = rigidBody.velocity.magnitude;
             borderControl.comingFromRight = false;
             borderControl.enabled = false;
             Invoke(nameof(EnableBorderControl), 0.2f);
@@ -97,9 +101,10 @@ public class Ball : MonoBehaviour
             direction.x *= -1;
             direction = direction.normalized;
             rigidBody.velocity = speed * direction;
+            savedSpeed = rigidBody.velocity.magnitude;
             borderControl.comingFromLeft = false;
             borderControl.enabled = false;
-            Invoke(nameof(EnableBorderControl), 0.2f);
+            Invoke(nameof(EnableBorderControl), 0.75f);
         }
 
         if (Input.GetKey(KeyCode.Space)||Input.GetButton("Submit"))
@@ -114,21 +119,11 @@ public class Ball : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        if (gameManager.isPaused)
-        {
-            Debug.Log("Wont change");
-            return;
-        }
         lastPosition =  transform.position;
     }
 
     private void LateUpdate()
     {
-        if (gameManager.isPaused)
-        {
-            Debug.Log("Shouldn't move");
-            return;
-        }
         if (direction != Vector3.zero)
         {
             direction = Vector3.zero;

@@ -20,7 +20,6 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (gameManager.isPaused) return;
         mousePosition2D = Input.mousePosition;
         mousePosition2D.z = -Camera.main.transform.position.z;
         mousePosition3D = Camera.main.ScreenToWorldPoint(mousePosition2D);
@@ -60,6 +59,6 @@ public class Player : MonoBehaviour
     {
         Vector3 direction = collision.contacts[0].point - transform.position;
         direction = direction.normalized;
-        collision.rigidbody.velocity = (collision.gameObject.GetComponent<Ball>().speed) * direction;
+        collision.rigidbody.velocity = (collision.gameObject.GetComponent<Ball>().savedSpeed) * direction;
     }
 }
