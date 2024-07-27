@@ -7,9 +7,10 @@ public class MainMenu : MonoBehaviour
 {
     public GameObject SettingsMenu;
     public GameObject StartMenu;
-
+    public GameManager gameManager;
     public void StartGame()
     {
+        gameManager.Resume();
         SceneManager.LoadScene(1);
     }
     

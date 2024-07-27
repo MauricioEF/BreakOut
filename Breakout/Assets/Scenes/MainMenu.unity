@@ -340,6 +340,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SettingsMenu: {fileID: 0}
   StartMenu: {fileID: 285791616}
+  gameManager: {fileID: 0}
 --- !u!114 &285791618
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1343,6 +1344,52 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 827958277}
   m_CullTransparentMesh: 1
+--- !u!1 &835768746
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 835768748}
+  - component: {fileID: 835768747}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &835768747
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 835768746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59d00f999dfc75742a913f9ce6238ec2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  settings: {fileID: 11400000, guid: 3a33f691e7fc532409b658287fa0e5e9, type: 2}
+  isPaused: 0
+--- !u!4 &835768748
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 835768746}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 498, y: 280, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &853782766
 GameObject:
   m_ObjectHideFlags: 0
@@ -1774,6 +1821,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SettingsMenu: {fileID: 285791616}
   StartMenu: {fileID: 1732385432}
+  gameManager: {fileID: 835768747}
 --- !u!1 &993059386
 GameObject:
   m_ObjectHideFlags: 0
@@ -2528,10 +2576,10 @@ MonoBehaviour:
   m_FillRect: {fileID: 1709211127}
   m_HandleRect: {fileID: 409230893}
   m_Direction: 0
-  m_MinValue: 10
-  m_MaxValue: 100
-  m_WholeNumbers: 0
-  m_Value: 10
+  m_MinValue: 40
+  m_MaxValue: 75
+  m_WholeNumbers: 1
+  m_Value: 50
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -3642,3 +3690,4 @@ SceneRoots:
   - {fileID: 285791621}
   - {fileID: 782628377}
   - {fileID: 993059389}
+  - {fileID: 835768748}

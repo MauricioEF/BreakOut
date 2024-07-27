@@ -4,15 +4,20 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public Settings settings;
     public bool isPaused = false;
 
 
+    private void Awake()
+    {
+        Debug.Log(settings.DifficultyLevel);
+    }
     public void Pause()
     {
-        isPaused = true;
+        Time.timeScale = 0;
     }
     public void Resume()
     {
-        isPaused=false;
+        Time.timeScale = 1;
     }
 }

@@ -6,7 +6,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName ="Settings", menuName ="Tools/Settings", order =1)]
 public class Settings : PersistentHighScore
 {
-    public float BallSpeed = 30;
+    public float BallSpeed = 40;
     public Edifficulty  DifficultyLevel= Edifficulty.easy;
 
     public enum Edifficulty

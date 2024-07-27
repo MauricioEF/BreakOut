@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public int LimitX = 48;
+    public int LimitX = 58;
     public float speed = 50.0f;
     new Transform transform;
     Vector3 mousePosition2D;
@@ -20,10 +20,9 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (gameManager.isPaused) return;
-        mousePosition2D = Input.mousePosition;
-        mousePosition2D.z = -Camera.main.transform.position.z;
-        mousePosition3D = Camera.main.ScreenToWorldPoint(mousePosition2D);
+        //mousePosition2D = Input.mousePosition;
+        //mousePosition2D.z = -Camera.main.transform.position.z;
+        //mousePosition3D = Camera.main.ScreenToWorldPoint(mousePosition2D);
 
 
         //Keyboard
@@ -47,19 +46,5 @@ public class Player : MonoBehaviour
             pos.x = LimitX;
         }
         transform.position = pos;
-    }
-
-    public void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Ball"))
-        {
-            BounceBall(collision);
-        }
-    }
-    public virtual void BounceBall(Collision collision)
-    {
-        Vector3 direction = collision.contacts[0].point - transform.position;
-        direction = direction.normalized;
-        collision.rigidbody.velocity = (collision.gameObject.GetComponent<Ball>().speed) * direction;
     }
 }
