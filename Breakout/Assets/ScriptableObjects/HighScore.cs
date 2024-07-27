@@ -6,5 +6,7 @@ using UnityEngine;
 public class HighScore : PersistentHighScore
 {
     public int score = 0;
-    public int highScore = 10000;
+    public int highScoreEasy = 10000;
+    public int highScoreMedium = 10000;
+    public int highScorehard = 10000;
 }

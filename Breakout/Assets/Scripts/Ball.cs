@@ -7,24 +7,20 @@ public class Ball : MonoBehaviour
 {
 
     public bool isGameStarted = false;
-    [SerializeField] public float speed = 10.0f;
+    [SerializeField] public float speed;
 
-    Vector3 lastPosition = Vector3.zero;
-    Vector3 direction = Vector3.zero;
     Rigidbody rigidBody;
     private ControlBorders borderControl;
     public UnityEvent BallDestroyed;
     public Settings settings;
     private GameManager gameManager;
-    private Vector3 savedVelocity;
-    public float savedSpeed;
+
     private void Awake()
     {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         Debug.Log(gameManager);
         borderControl = GetComponent<ControlBorders>();
         speed = (int)settings.BallSpeed;
-        savedSpeed = speed;
     }
     // Start is called before the first frame update
     void Start()
@@ -39,74 +35,6 @@ public class Ball : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (gameManager.isPaused)
-        {
-            if (rigidBody.IsSleeping())
-            {
-
-            }
-            else
-            {
-                savedVelocity = rigidBody.velocity;
-                rigidBody.Sleep();
-            }
-        }
-        else
-        {
-            if (!rigidBody.IsSleeping())
-            {
-
-            }
-            else
-            {
-                Debug.Log("Waking Up");
-                rigidBody.WakeUp();
-                rigidBody.velocity = savedVelocity;
-            }
-        }
-        if (borderControl.comingFromBottom)
-        {
-            BallDestroyed.Invoke();
-            Destroy(this.gameObject);
-            borderControl.comingFromBottom = false;
-        }
-        if (borderControl.comingFromTop)
-        {
-            direction = transform.position - lastPosition;
-            Debug.Log("Ball touched top Border");
-            direction.y *= -1;
-            direction = direction.normalized;
-            rigidBody.velocity = speed * direction;
-            savedSpeed = rigidBody.velocity.magnitude;
-            borderControl.comingFromTop = false;
-            borderControl.enabled = false;
-            Invoke(nameof(EnableBorderControl), 0.2f);
-        }
-        if (borderControl.comingFromRight)
-        {
-            direction = transform.position - lastPosition;
-            Debug.Log("Ball touched right Border");
-            direction.x *= -1;
-            direction = direction.normalized;
-            rigidBody.velocity = speed * direction;
-            savedSpeed = rigidBody.velocity.magnitude;
-            borderControl.comingFromRight = false;
-            borderControl.enabled = false;
-            Invoke(nameof(EnableBorderControl), 0.2f);
-        }
-        if (borderControl.comingFromLeft)
-        {
-            direction = transform.position - lastPosition;
-            Debug.Log("Ball touched left Border");
-            direction.x *= -1;
-            direction = direction.normalized;
-            rigidBody.velocity = speed * direction;
-            savedSpeed = rigidBody.velocity.magnitude;
-            borderControl.comingFromLeft = false;
-            borderControl.enabled = false;
-            Invoke(nameof(EnableBorderControl), 0.75f);
-        }
-
         if (Input.GetKey(KeyCode.Space)||Input.GetButton("Submit"))
         {
             if (!isGameStarted)
@@ -117,20 +45,62 @@ public class Ball : MonoBehaviour
             }
         }
     }
-    private void FixedUpdate()
+
+    public void ReachedTop()
     {
-        lastPosition =  transform.position;
+        Vector3 direction = rigidBody.velocity;
+        direction.y *= -1;
+        rigidBody.velocity = direction.normalized * speed;
+        borderControl.comingFromRight = borderControl.comingFromLeft = false;
     }
 
-    private void LateUpdate()
+    public void ReachedBottom()
     {
-        if (direction != Vector3.zero)
+        BallDestroyed.Invoke();
+        Destroy(this.gameObject);
+    }
+
+    public void ReachedLeft() 
+    {
+        Vector3 direction = rigidBody.velocity;
+        direction.x *= -1;
+        rigidBody.velocity = direction.normalized * speed;
+        borderControl.comingFromRight = borderControl.comingFromTop = false;
+    }
+
+    public void ReachedRight()
+    {
+        Vector3 direction = rigidBody.velocity;
+        direction.x *= -1;
+        rigidBody.velocity = direction.normalized * speed;
+        borderControl.comingFromLeft = borderControl.comingFromTop = false;
+    }
+
+    public void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Block") || collision.gameObject.CompareTag("Player"))
         {
-            direction = Vector3.zero;
+            var speedModifier = collision.gameObject.CompareTag("Block") ?collision.gameObject.GetComponent<Block>().speedModifier:1;
+            BounceWithPlayerOrBlock(collision.GetContact(0).point, collision.gameObject.transform.position,speedModifier);
         }
     }
-    private void EnableBorderControl()
+
+    public void BounceWithPlayerOrBlock(Vector3 point, Vector3 posOther,float speedModifier)
     {
-        borderControl.enabled = true;
+        borderControl.comingFromTop = borderControl.comingFromLeft = borderControl.comingFromRight = false;
+        Vector3 direction = point - posOther;
+        Debug.Log("current Speed: " + rigidBody.velocity.magnitude);
+        speed = settings.BallSpeed;
+        rigidBody.velocity = direction.normalized * speed;
+    }
+
+    public void Reset()
+    {
+        Vector3 initialPosition = GameObject.FindGameObjectWithTag("Player").transform.position;
+        initialPosition.y += 2;
+        this.transform.position = initialPosition;
+        this.transform.SetParent(GameObject.FindGameObjectWithTag("Player").transform);
+        this.rigidBody.velocity = new Vector3(0, 0, 0);
+        isGameStarted = false;
     }
 }

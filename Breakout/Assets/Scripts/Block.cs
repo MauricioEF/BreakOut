@@ -9,6 +9,7 @@ public class Block : MonoBehaviour
 
     public int resistance = 1;
     public float speedModifier = 1;
+    public int score = 100;
     public UnityEvent increaseScore;
     public bool countable = true;
 
@@ -22,29 +23,19 @@ public class Block : MonoBehaviour
 
     public virtual void BounceBall(Collision collision)
     {
-        Vector3 direction = collision.GetContact(0).point - transform.position;
-        direction = direction.normalized;
-        collision.rigidbody.velocity = (collision.gameObject.GetComponent<Ball>().savedSpeed * speedModifier) * direction;
         DecreaseResistance();
     }
 
     public virtual void DecreaseResistance()
     {
         resistance--;
+        Debug.Log(resistance);
     }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
     public virtual void Update()
     {
         if (resistance <= 0)
         {
-            increaseScore.Invoke();
+            Camera.main.gameObject.GetComponent<Score>().IncreaseScore(score);
             Destroy(this.gameObject);
             return;
         }

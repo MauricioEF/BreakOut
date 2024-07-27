@@ -15,23 +15,43 @@ public class ControlBorders : MonoBehaviour
     public float cameraHeight;
     public bool comingFromRight, comingFromLeft, comingFromTop, comingFromBottom;
 
+    public GameObject ColliderTop, ColliderBottom, ColliderLeft, ColliderRight;
     public void Awake()
     {
+       
+        ColliderTop = GameObject.FindGameObjectWithTag("ColliderTop");
+        ColliderBottom = GameObject.FindGameObjectWithTag("ColliderBottom");
+        ColliderLeft = GameObject.FindGameObjectWithTag("ColliderLeft");
+        ColliderRight = GameObject.FindGameObjectWithTag("ColliderRight");
+
         cameraHeight = Camera.main.orthographicSize;
         cameraWidth = Camera.main.aspect * cameraHeight;
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+
+        ColliderTop.transform.position = new Vector3(0, cameraHeight, -10);
+        ColliderBottom.transform.position = new Vector3(0, -cameraHeight, -7);
+        ColliderLeft.transform.position = new Vector3(-cameraWidth, 0, -7);
+        ColliderRight.transform.position = new Vector3(cameraWidth, 0, -7);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerEnter(Collider other)
     {
-        
+        if (other.gameObject == ColliderTop && comingFromTop == false)
+        {
+            this.GetComponent<Ball>().ReachedTop();
+        }
+        if (other.gameObject == ColliderBottom)
+        {
+            this.GetComponent<Ball>().ReachedBottom();
+        }
+        if (other.gameObject == ColliderRight && comingFromRight == false)
+        {
+            this.GetComponent<Ball>().ReachedRight();
+        }
+        if (other.gameObject == ColliderLeft && comingFromLeft == false)
+        {
+            this.GetComponent<Ball>().ReachedLeft();
+        }
     }
-
     private void LateUpdate()
     {
         //We use after all the Update Logic.
@@ -72,4 +92,6 @@ public class ControlBorders : MonoBehaviour
         Vector3 borderSize = new Vector3(cameraWidth * 2, cameraHeight * 2, 0.1f);
         Gizmos.DrawWireCube(Vector3.zero, borderSize);
     }
+    
+
 }
